@@ -8,19 +8,31 @@ namespace atFrameWork2.PageObjects
 {
     class PortalCompanyListItem
     {
-        WebItem menuItem;
+        IWebDriver driver;
 
-        public PortalCompanyListItem(string title, WebItem menuItem)
+        public PortalCompanyListItem(IWebDriver driver)
         {
-            Title = title;
-            this.menuItem = menuItem;
+            this.driver = driver;
         }
 
-        public string Title { get; }
+        public static PortalCompanyList InviteUsers =>
+            new PortalCompanyList("Пригласить сотрудников", new WebItem("//button[text()='Пригласить сотрудников']", "Пригласить сотрудников"));
+        public static PortalCompanyList RegNewUser =>
+            new PortalCompanyList("Пригласить сотрудников", new WebItem("//a[@data-role='menu-add']", "Пригласить сотрудников"));
+        public static PortalCompanyList AddUser =>
+            new PortalCompanyList("Добавить пользователя", new WebItem("//button[@id='intranet-invitation-btn']", "Добавить пользователя"));
+        public static PortalCompanyList SliderIframe =>
+            new PortalCompanyList("Айфрейм слайдера", new WebItem("//iframe[@class='side-panel-iframe']", "Айфрейм слайдера"));
 
-        public void Select(IWebDriver driver)
+        public void OpenSection(PortalCompanyList menuItem)
         {
-            menuItem.Click(driver);
+            menuItem.Select(driver);
         }
+
+        public void Switch(PortalCompanyList menuItem)
+        {
+            menuItem.Switch(driver);
+        }
+
     }
 }

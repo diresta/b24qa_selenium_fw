@@ -9,21 +9,24 @@ namespace atFrameWork2.PageObjects
     class PortalCompanyList
     {
 
-        IWebDriver driver;
+        WebItem menuItem;
 
-        public PortalCompanyList(IWebDriver driver)
+        public PortalCompanyList(string title, WebItem menuItem)
         {
-            this.driver = driver;
+            Title = title;
+            this.menuItem = menuItem;
         }
 
-        public static PortalCompanyListItem InviteNewUser =>
-            new PortalCompanyListItem("Пригласить сотрудников", new WebItem("//button[text()='Пригласить сотрудников']", "Пригласить сотрудников"));
+        public string Title { get; }
 
-        public void OpenSection(PortalCompanyListItem menuItem)
+        public void Select(IWebDriver driver)
         {
-            menuItem.Select(driver);
+            menuItem.Click(driver);
         }
 
-     
+        public void Switch(IWebDriver driver)
+        {
+            menuItem.SwitchToFrame(driver);
+        }
     }
 }

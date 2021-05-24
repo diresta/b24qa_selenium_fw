@@ -1,5 +1,6 @@
 ﻿using atFrameWork2.BaseFramework;
 using atFrameWork2.PageObjects;
+using atFrameWork2.PageObjects.SiteSliders;
 using atFrameWork2.SeleniumFramework;
 using OpenQA.Selenium;
 using System;
@@ -9,7 +10,6 @@ using System.Threading;
 
 namespace atFrameWork2.TestCases
 {
-    /*
     class Case_RegAUser : CaseCollectionBuilder
     {
         protected override List<TestCase> GetCases()
@@ -22,35 +22,25 @@ namespace atFrameWork2.TestCases
 
         public void CreateEvent(IWebDriver driver, PortalHomePage homePage)
         {
-            homePage.LeftMenu
-                .OpenSection(PortalLeftMenu.Company);
+            Random rnd = new Random();
+            var nameSalt = rnd.Next(10000);
 
-            var btnInviteUser = new WebItem("//button[text()='Пригласить сотрудников']", "Пригласить сотрудников");
-            btnInviteUser.Click(driver);
-
-            var sliderFrame = new WebItem("//iframe[@class='side-panel-iframe']", "Фрейм слайдера");
-            sliderFrame.SwitchToFrame(driver);
-
-            var btnRegUser = new WebItem("//a[@data-role='menu-add']", "Зарегистрировать");
-            btnRegUser.Click(driver);
-
+            homePage.LeftMenu.OpenSection(PortalLeftMenu.Company);
+            homePage.CompanyList.OpenSection(PortalCompanyListItem.InviteUsers);
+            homePage.CompanyList.Switch(PortalCompanyListItem.SliderIframe);
+            homePage.CompanyList.OpenSection(PortalCompanyListItem.RegNewUser);
+            
             var inputNameUser = new WebItem("//input[@id='ADD_NAME']", "Ввод имени");
-   
-            //inputNameUser.SendKeys(task.Title, driver);
+            inputNameUser.SendKeys("testName" + nameSalt, driver);
             
-            var btnAddEvent = new WebItem("//span[@id='feed-add-post-form-tab-calendar']/child::span", "Кнопка добавить событие");
-            btnAddEvent.Click(driver);
+            var inputLastnameUser = new WebItem("//input[@id='ADD_LAST_NAME']", "Ввод Фамилии");
+            inputLastnameUser.SendKeys("testLastname" + nameSalt, driver);
 
-            var sliderFrame = new WebItem("//iframe[@class='side-panel-iframe']", "Фрейм слайдера");
-            sliderFrame.SwitchToFrame(driver);
+            var inputEmailUser = new WebItem("//input[@id='ADD_EMAIL']", "Ввод email");
+            inputEmailUser.SendKeys("testemail@"+ nameSalt + "kamabullet.ru", driver);
 
-            var btnSave = new WebItem("//input[@id='calendar_edit_slider_608142327_save']", "Кнопка сохранить");
-            btnSave.Click(driver);
-
-            var btnView = new WebItem("//span[@class='ui-notification-balloon-action']", "Кнопка просмотра созданного события");
-            btnView.Click(driver); 
-            
-}
-    }*/
-}
+            homePage.CompanyList.OpenSection(PortalCompanyListItem.AddUser);
+        }
+    }
+        }
 

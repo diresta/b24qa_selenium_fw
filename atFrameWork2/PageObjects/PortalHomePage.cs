@@ -12,6 +12,8 @@ namespace atFrameWork2.PageObjects
         public PortalLeftMenu LeftMenu => new PortalLeftMenu(driver);
 
         public PortalSiteListItem SitesList => new PortalSiteListItem(driver);
+        public PortalCompanyListItem CompanyList => new PortalCompanyListItem(driver);
+        public PortalDiskListItem DiskList => new PortalDiskListItem(driver);
 
         public PortalHomePage(IWebDriver driver)
         {
